@@ -8,7 +8,7 @@ cra_con::cra_con(string _path, string _filename)
 	filename = _filename;
 	filename.append(".CRA");
 	path = _path;
-	fstream = NULL;
+	fstream = nullptr;
 
 	prs[0].assign("FILE NAME:              ");
 	prs[1].assign("SOURCE NAME:            ");
@@ -214,7 +214,7 @@ int cra_con::LoadData(float *_data)
 	_fseeki64(fstream, offset, 0);
 
 	float p = num_of_projections / 100.;
-	printf("\nloading data %.2f %%      \r",0);
+	printf("\nloading data %.2f %%      \r",0.);
 
 	if(header.clockwise)
 	{
@@ -272,7 +272,7 @@ int cra_con::LoadData(float *_data)
 	cout << endl;
 	delete[] data;
 	fclose(fstream);
-	fstream = NULL;
+	fstream = nullptr;
 	return error;
 }
 
@@ -437,7 +437,7 @@ bin_siz::bin_siz(string _path, string _filename)
 
 	filename = _filename;
 	path = _path;
-	fstream = NULL;
+	fstream = nullptr;
 	im_size = 0;
 
 	block_size = 0;
@@ -457,13 +457,13 @@ bin_siz::bin_siz(string _path, string _filename)
 	b_file.append(filename);
 	b_file.append(".bin");
 
-	ThreadIO = NULL;
+	ThreadIO = nullptr;
 
 	sync_flag = false;
 
 	for(int i = 0; i < ALMEM; i++)
 	{
-		data[i].data = NULL;
+		data[i].data = nullptr;
 		data[i].collecting = false;
 		data[i].block = 0;
 		data[i].filepos = 0;
@@ -544,7 +544,7 @@ int bin_siz::CreateFile()
 	LARGE_INTEGER new_size;
 	new_size.QuadPart = (long long int)scan_blocks_count * im_size * im_z * sizeof(float);
 
-	HANDLE hFile = CreateFileA( b_file.c_str(), GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+	HANDLE hFile = CreateFileA( b_file.c_str(), GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
 	if(hFile == INVALID_HANDLE_VALUE)
 	{
 		error = GetLastError();
@@ -552,7 +552,7 @@ int bin_siz::CreateFile()
 		return error;
 	}
 
-	SetFilePointerEx(hFile,new_size,NULL,FILE_BEGIN);
+	SetFilePointerEx(hFile, new_size, nullptr, FILE_BEGIN);
 	SetEndOfFile(hFile);
 	CloseHandle(hFile);
 
@@ -575,14 +575,14 @@ int bin_siz::CreateFile()
 
 float *bin_siz::GetBlock(int _block_n, bool _collecting)
 {
-	float *pointer = NULL;
+	float *pointer = nullptr;
 
 	if(sync_flag)
 	{
 		if(WaitForSingleObject(ThreadIO, 60000) == WAIT_TIMEOUT)
 			cerr << "IO thread timeout" << endl;
 		CloseHandle(ThreadIO);
-		ThreadIO = NULL;
+		ThreadIO = nullptr;
 		sync_flag = false;
 	}
 
@@ -630,8 +630,8 @@ float *bin_siz::GetBlock(int _block_n, bool _collecting)
 	//cout << data[2].data_size << " " << data[2].type << " " << data[2].filepos << " " << 2 << endl ;
 
 
-	ThreadIO = CreateThread( NULL, 0, FileIO, &data, 0, NULL);  
-    if ( ThreadIO == NULL)
+	ThreadIO = CreateThread(nullptr, 0, FileIO, &data, 0, nullptr);
+    if (!ThreadIO)
 	{
 		unsigned int exit = 0;
 		ExitProcess(exit);
@@ -652,7 +652,7 @@ void bin_siz::FlushBuffer()
 	{
 		WaitForSingleObject(ThreadIO, 60000);
 		CloseHandle(ThreadIO);
-		ThreadIO = NULL;
+		ThreadIO = nullptr;
 		sync_flag = false;
 	}
 
@@ -667,7 +667,7 @@ void bin_siz::FlushBuffer()
 
 float *bin_siz::GetBlock_t(int _actual_block, bool _collecting)
 {
-	float *pointer = NULL;
+	float *pointer = nullptr;
 	IO *buffer;
 
 	if(sync_flag)
@@ -675,7 +675,7 @@ float *bin_siz::GetBlock_t(int _actual_block, bool _collecting)
 		if(WaitForSingleObject(ThreadIO, 60000) == WAIT_TIMEOUT)
 			cerr << "IO thread timeout" << endl;
 		CloseHandle(ThreadIO);
-		ThreadIO = NULL;
+		ThreadIO = nullptr;
 		sync_flag = false;
 	}
 
@@ -719,8 +719,8 @@ float *bin_siz::GetBlock_t(int _actual_block, bool _collecting)
 		buffer->data_size = block_size * sizeof(float);
 	}
 
-	ThreadIO = CreateThread( NULL, 0, FileIO, &data, 0, NULL);  
-	if ( ThreadIO == NULL)
+	ThreadIO = CreateThread(nullptr, 0, FileIO, &data, 0, nullptr);
+	if (!ThreadIO)
 	{
 		unsigned int exit;
 		ExitProcess(exit);
@@ -742,7 +742,7 @@ DWORD WINAPI bin_siz::FileIO( LPVOID lpParam )
 
 	pIO data = (pIO) lpParam;
 
-	FILE *fstream = NULL;
+	FILE *fstream = nullptr;
 	if( fopen_s(&fstream, data[0].path.c_str(), "r+b"))
 			cerr << "file open error" << endl;
 	int rd = 0;

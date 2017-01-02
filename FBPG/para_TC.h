@@ -1,21 +1,15 @@
+#ifndef PARATC_H
+#define PARATC_H
+
 #include "kernel.cuh"
 #include "rsq_load.h"
 #include "image_file.h"
 #include "mucat_file.h"
-
-#pragma once
+#include "FilteredBackProjection.h"
 
 #include "tiffio.h"
 #include <time.h>
 #include "tinyxml.h"
-
-
-/*#include <stdio.h>
-#include <tchar.h>
-#include <iostream>
-#include <math.h>
-#include <time.h>
-*/
 
 using namespace std;
 
@@ -36,3 +30,5 @@ typedef struct _setting
 bool LoadSetting(setting *set);
 void SaveSetting(setting *set);
 void BoolAttribute(TiXmlElement* _element, const char *name, bool *_value);
+
+#endif // !PARATC_H

@@ -116,13 +116,15 @@ private:
 	int state;
 };
 
-
-#define WRITE 0
-#define READ 1
-#define WORK 2
-#define FINISH 3
-#define FREE 4;
-#define RW 5;
+enum TA
+{
+	WRITE = 0,
+	READ,
+	WORK,
+	FINISH,
+	FREE,
+	RW
+};
 
 typedef struct _IO
 {

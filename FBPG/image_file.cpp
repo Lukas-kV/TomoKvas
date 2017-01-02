@@ -7,7 +7,7 @@ image_file::image_file(std::string _filename, std::string _output_dir)
 	filename = _filename;
 	output_dir = _output_dir;
 
-	fstream = NULL;
+	fstream = nullptr;
 
 	im_size_x = 0;
 	im_size_y = 0;
@@ -136,7 +136,7 @@ int image_file::TiffWrite (const std::string &_filename)
 	struct	tiff * m_tiff;
 
 
-	if ((m_tiff = TIFFOpen(_filename.c_str(), "w" )) != NULL )
+	if ((m_tiff = TIFFOpen(_filename.c_str(), "w" )) != nullptr)
 	{
 	
 		switch (tiffType) 
