@@ -66,7 +66,9 @@ int main(int argc, char* argv[])
 	set.GPUmemLimit = (AvailableMemory / 1024. / 1024. - recSlicesRam) * 0.9; // 90 procent volne pameti
 	cout << endl << "GPU memory" << endl;
 	cout << "  available : " <<  AvailableMemory / 1024. / 1024. << " MiB" << endl;
-	cout << "  limit: " << set.GPUmemLimit << " MiB" << endl;
+	cout << "  limit (90% of free memory): " << set.GPUmemLimit << " MiB" << endl;
+	cout << "  allocation limit: " << set.GPUAllocLimit << "MiB" << endl;
+
 
 	cout << endl;
 	cout << "reconstruction:" << endl;

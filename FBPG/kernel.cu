@@ -227,7 +227,7 @@ cudaError_t RunAbsKernel(size_t _data_X, cufftComplex *_dev_data, float *_dev_fi
 	cudaError_t cudaStatus = cudaDeviceSynchronize();
 	if (cudaStatus != cudaSuccess)
 	{		
-		std::cerr << "convolution: filter calculation cudaDeviceSynchronize returned error " << cudaGetErrorString(cudaStatus) << "after launching addKernel! " << std::endl;
+		std::cerr << "convolution: filter calculation cudaDeviceSynchronize returned " << cudaGetErrorString(cudaStatus) << "after launching addKernel! " << std::endl;
 	}
 	return cudaStatus;
 }
@@ -241,7 +241,7 @@ cudaError_t RunFiltrationKernel(size_t _data_X, size_t _data_Y, cufftComplex *_d
 	cudaError_t cudaStatus = cudaDeviceSynchronize();
 	if (cudaStatus != cudaSuccess)
 	{
-		std::cerr << "convolution: filtration cudaDeviceSynchronize returned error " << cudaGetErrorString(cudaStatus) << "after launching addKernel! " << std::endl;
+		std::cerr << "convolution: filtration cudaDeviceSynchronize returned " << cudaGetErrorString(cudaStatus) << "after launching addKernel! " << std::endl;
 	}
 
 	return cudaStatus;
@@ -258,7 +258,7 @@ cudaError_t RunFBPConeKernel(rec_par recn, sin_par sing)
 	cudaError_t cudaStatus = cudaDeviceSynchronize();
 	if (cudaStatus != cudaSuccess)
 	{
-		std::cerr << "reconstruction: cudaDeviceSynchronize returned error " << cudaGetErrorString(cudaStatus) << " after launching FBPKernel!" << std::endl;
+		std::cerr << "reconstruction: cudaDeviceSynchronize returned " << cudaGetErrorString(cudaStatus) << " after launching FBPKernel!" << std::endl;
 	}
 	return cudaStatus;
 }
@@ -287,7 +287,7 @@ cudaError_t RunCollectionKernel(rec_par recn, float *_dev_collection, size_t _co
 	cudaError_t cudaStatus = cudaDeviceSynchronize();
 	if (cudaStatus != cudaSuccess)
 	{
-		std::cerr << "reconstruction: cudaDeviceSynchronize returned error code " << cudaStatus << " after launching CollectingKernel!" << std::endl;
+		std::cerr << "reconstruction: cudaDeviceSynchronize returned " << cudaGetErrorString(cudaStatus) << " after launching CollectingKernel!" << std::endl;
 	}
 
 	return cudaStatus;
