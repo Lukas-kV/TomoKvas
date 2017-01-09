@@ -227,7 +227,7 @@ cudaError_t RunAbsKernel(size_t _data_X, cufftComplex *_dev_data, float *_dev_fi
 	cudaError_t cudaStatus = cudaDeviceSynchronize();
 	if (cudaStatus != cudaSuccess)
 	{		
-		std::cerr << "convolution: filter calculation cudaDeviceSynchronize returned " << cudaGetErrorString(cudaStatus) << "after launching addKernel! " << std::endl;
+		std::cerr << "convolution: filter calculation cudaDeviceSynchronize returned " << cudaGetErrorString(cudaStatus) << "after launching AbsKernel! " << std::endl;
 	}
 	return cudaStatus;
 }
@@ -241,7 +241,7 @@ cudaError_t RunFiltrationKernel(size_t _data_X, size_t _data_Y, cufftComplex *_d
 	cudaError_t cudaStatus = cudaDeviceSynchronize();
 	if (cudaStatus != cudaSuccess)
 	{
-		std::cerr << "convolution: filtration cudaDeviceSynchronize returned " << cudaGetErrorString(cudaStatus) << "after launching addKernel! " << std::endl;
+		std::cerr << "convolution: filtration cudaDeviceSynchronize returned " << cudaGetErrorString(cudaStatus) << "after launching FiltrationKernel! " << std::endl;
 	}
 
 	return cudaStatus;
@@ -272,7 +272,7 @@ cudaError_t RunRB_comma3DKernel(sin_par sing)
 	cudaError_t cudaStatus = cudaDeviceSynchronize();
 	if (cudaStatus != cudaSuccess)
 	{
-		std::cerr << "RB': cudaDeviceSynchronize returned error " << cudaGetErrorString(cudaStatus) << " after launching addKernel!" << std::endl;
+		std::cerr << "RB': cudaDeviceSynchronize returned " << cudaGetErrorString(cudaStatus) << " after launching RB_comma3DKernel!" << std::endl;
 	}
 
 	return cudaStatus;

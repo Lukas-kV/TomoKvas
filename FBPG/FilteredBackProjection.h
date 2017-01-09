@@ -13,18 +13,17 @@ public:
 
 
 	void SetSinogramProperties(float *_sinogram, const int &_sinogram_X, const float &_centre_X, const int &_sinogram_Y, const int &_sinogram_Z, const float &_centre_Z, const float &_delta_fi, float _distance, float _sampling);
-	//void SetReconstructionProperties(float *_reconstruction, const int &_reconstruction_X, const float &_centre_X, const int &_reconstruction_Y, const float &_centre_Y, const int &_reconstruction_Z, const float &_centre_Z, const float &_rot);
 
 	void SetReconstructionProperties(bin_siz *_output_file, const int &_reconstruction_X, const float &_centre_X, const int &_reconstruction_Y, const float &_centre_Y, const int &_reconstruction_Z, const float &_centre_Z, const float &_rot);
 
 	void SetAxisDirection(const bool &_X = false, const bool &_Y = false, const bool &_Z = false);
 
-	void SetGPUid(const int &_ID = 0);
-	void SetBlockSize(const int &_sz = 16);
-	void SetAllocationLimit(const long long int &_memory_limit = (long long int)1024 * 1024 * 1024);
-	void SetCollecting(const bool &_collecting = false);
-	void SetShowInfo(const bool &_show = false);
-	void SetScaleXYZ(const float &_scale);
+	void SetGPUid(const int &_ID = 0) { devID = _ID; };
+	void SetBlockSize(const int &_sz = 16) { size_of_Z_block = _sz; };
+	void SetAllocationLimit(const long long int &_memory_limit = (long long int)1024 * 1024 * 1024) { memory_limit = _memory_limit; };
+	void SetCollecting(const bool &_collecting = false) { collecting = _collecting; };
+	void SetShowInfo(const bool &_show = false) { show = _show; };
+	void SetScaleXYZ(const float &_scale) { recn.scale = _scale; };
 
 	cudaError_t Initialize();
 	cudaError_t CalcSinCos();

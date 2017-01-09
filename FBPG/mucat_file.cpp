@@ -496,7 +496,7 @@ void bin_siz::SetImageSize(int _x, int _y, int _z)
 	im_z = _z;
 	im_size = _x * _y;
 
-	CreateFile();
+	CreateBinFile();
 }
 
 void bin_siz::SetSlicesPerBlock(int _z)
@@ -538,7 +538,7 @@ int bin_siz::SaveHeader()
 		return error;
 }
 
-int bin_siz::CreateFile()
+int bin_siz::CreateBinFile()
 {
 	
 	LARGE_INTEGER new_size;

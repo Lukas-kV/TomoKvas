@@ -11,7 +11,7 @@ int main(int argc, char* argv[])
 	{
 		string fn;
 		fn.assign(argv[0]);
-		int sl = fn.rfind("\\");
+		size_t sl = fn.rfind("\\");
 		fn = fn.substr(sl + 1, fn.length());		
 		cerr << "usage: " << fn << " file.cra" << endl;
 		cout << "press enter" << endl;
@@ -24,8 +24,8 @@ int main(int argc, char* argv[])
 	string path;
 	string filename;
 	
-	int sl = fn.rfind("\\");
-	int dt = fn.rfind(".");
+	size_t sl = fn.rfind("\\");
+	size_t dt = fn.rfind(".");
 
 	if (sl==string::npos)
 		path = ".\\";
@@ -102,7 +102,7 @@ int main(int argc, char* argv[])
 	output_file->SetImageSize(rec_x, rec_y, rec_z);
 	output_file->SetSlicesPerBlock(set.NoOfSlicesInOneBlock);
 
-	cout << "allocated IO reconstruction buffer " << output_file->GetBufferSize() << " MiB for "<< set.NoOfSlicesInOneBlock << " slices" << endl << endl;
+	cout << "host allocated IO reconstruction buffer " << output_file->GetBufferSize() << " MiB for "<< set.NoOfSlicesInOneBlock << " slices" << endl << endl;
 
 	clock_t Sblock_start = clock();
 	for(ScanBlock = 0; ScanBlock < ScanBlocks; ScanBlock++)
@@ -151,7 +151,11 @@ int main(int argc, char* argv[])
 			} 
 			delete[] data; // data jsou v GPU
 
-			FBP->CalculateReconstruction();
+			if (FBP->CalculateReconstruction() != cudaSuccess)
+			{
+				delete FBP;
+				break;
+			}
 			delete FBP;
 
 		}

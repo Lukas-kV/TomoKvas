@@ -124,8 +124,7 @@
       <TargetMachinePlatform>64</TargetMachinePlatform>
       <Keep>false</Keep>
       <NvccCompilation>compile</NvccCompilation>
-      <CodeGeneration>
-      </CodeGeneration>
+      <CodeGeneration>compute_30,sm_30;compute_35,sm_35;compute_50,sm_50;compute_52,sm_52</CodeGeneration>
       <Runtime>MTd</Runtime>
     </CudaCompile>
   </ItemDefinitionGroup>

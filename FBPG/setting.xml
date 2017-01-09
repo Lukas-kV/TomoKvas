@@ -1,5 +1,5 @@
 <GPU_FBP>
-    <GPU ID="0" MemLimit_MiB="1848" AllocLimit_MiB="1024" />
-    <RECONSTRUCTION SimultaneouslyReconstructedSlices="30" X_direction="0" Y_direction="0" Z_direction="0" DetectorVerticalCenterOffset="0" />
-    <GENERAL WaitForEnter="1" />
+    <GPU ID="0" MemLimit_MiB="5120" AllocLimit_MiB="4092" />
+    <RECONSTRUCTION SimultaneouslyReconstructedSlices="16" X_direction="0" Y_direction="0" Z_direction="0" DetectorVerticalCenterOffset="0" />
+    <GENERAL WaitForEnter="0" />
 </GPU_FBP>

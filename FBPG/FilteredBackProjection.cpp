@@ -67,36 +67,6 @@ FilteredBackProjection::~FilteredBackProjection()
 	cout << "reconstruction complete: " << GetDeltaTime(global_start, clock()) << endl;
 }
 
-void FilteredBackProjection::SetGPUid(const int &_ID)
-{
-	devID = _ID;
-}
-
-void FilteredBackProjection::SetBlockSize(const int &_sz)
-{
-	size_of_Z_block = _sz;
-}
-
-void FilteredBackProjection::SetCollecting(const bool &_collecting)
-{
-	collecting = _collecting;
-}
-
-void FilteredBackProjection::SetShowInfo(const bool &_show)
-{
-	show = _show;
-}
-
-void FilteredBackProjection::SetAllocationLimit(const long long int &_memory_limit)
-{
-	memory_limit = _memory_limit;
-}
-
-void FilteredBackProjection::SetScaleXYZ(const float &_scale)
-{
-	recn.scale = _scale;
-}
-
 size_t FilteredBackProjection::GetFreeMemInfo(int _GPUId)
 {
 	cudaDeviceProp deviceProps;
@@ -107,6 +77,7 @@ size_t FilteredBackProjection::GetFreeMemInfo(int _GPUId)
 
 	return free;
 }
+
 
 cudaError_t FilteredBackProjection::Initialize()
 {
@@ -129,7 +100,7 @@ cudaError_t FilteredBackProjection::Initialize()
 	sing.sin_in_block = sinograms_per_limit = memory_limit / memory_sin; /// celociselne vypoctu pocet sinogramu do memory limitu
 	memory_limit = sinograms_per_limit * memory_sin; /// zpetne vypoctu limit tak aby se do nej vesel celocisleny pocet sinogramu
 
-	nr_of_sin_blocks = ceil((float)memory_sinograms / (float)memory_limit); /// vypocte nejmensi vyssi pocet potrebnych bloku
+	nr_of_sin_blocks = (int)ceil((float)memory_sinograms / (float)memory_limit); /// vypocte nejmensi vyssi pocet potrebnych bloku
 	memory_rest = memory_limit - (memory_limit * nr_of_sin_blocks - memory_sinograms); /// vypocte se zbyvajici pamet
 	sinograms_per_rest = memory_rest / memory_sin; /// vypocte se pocet sinogramu ve zbyvajici pameti
 
@@ -292,21 +263,6 @@ void FilteredBackProjection::SetAxisDirection(const bool &_X, const bool &_Y, co
 	if (_Z)
 		recn.dirZ = (unsigned int)1 << 31;
 }
-
-/*void FilteredBackProjection::SetReconstructionProperties(float *_reconstruction, const int &_reconstruction_X, const float &_centre_X, const int &_reconstruction_Y, const float &_centre_Y, const int &_reconstruction_Z, const float &_centre_Z, const float &_rot)
-{
-reconstruction = _reconstruction;
-
-recn.rec_X = _reconstruction_X;
-recn.rec_Y = _reconstruction_Y;
-recn.rec_Z = _reconstruction_Z;
-
-recn.dX = -_centre_X;
-recn.dY = -_centre_Y;
-recn.dZ = dZ = -_centre_Z;
-recn.rot = _rot;
-}
-*/
 
 void FilteredBackProjection::SetReconstructionProperties(bin_siz *_output_file, const int &_reconstruction_X, const float &_centre_X, const int &_reconstruction_Y, const float &_centre_Y, const int &_reconstruction_Z, const float &_centre_Z, const float &_rot)
 {
@@ -665,8 +621,3 @@ void FilteredBackProjection::fShowInfo()
 	cout << "  Total     RAM         " << deviceProps.totalGlobalMem / 1024 / 1024 << "MiB" << endl << endl;
 	cout << "  Free      RAM         " << free / 1024 / 1024 << "MiB" << endl << endl;
 }
-
-
-///d:\xmt\jp_tooth5b.cra
-///d:\CONETEST\CONETEST.CRA
-//d:\large_data\dm_scroll_03.cra

@@ -190,7 +190,7 @@ private:
 
 	HANDLE ThreadIO;
 	int SaveHeader();
-	int CreateFile();
+	int CreateBinFile();
 
 };
 
